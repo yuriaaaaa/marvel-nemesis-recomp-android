@@ -13,6 +13,12 @@
 #include <windows.h>
 #else
 #include <sys/mman.h>
+#include <unistd.h>
+#if defined(__ANDROID__) && __ANDROID_API__ < 30
+#include <sys/syscall.h>
+// bionic declares memfd_create from API 30 on; the syscall is there on every arm64 kernel
+static int memfd_create(const char* name, unsigned flags) { return int(syscall(__NR_memfd_create, name, flags)); }
+#endif
 #endif
 
 namespace mem {

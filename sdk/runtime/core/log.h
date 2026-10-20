@@ -15,7 +15,10 @@ void Write(Level lv, const char* fmt, ...) __attribute__((format(printf, 2, 3)))
 void Flush();
 const std::string& Path();
 
-#ifdef NDEBUG
+#if defined(__ANDROID__)
+// the launcher's Debug logging switch, set before Init: every line, else errors only
+inline bool kVerbose = false;
+#elif defined(NDEBUG)
 inline constexpr bool kVerbose = false;
 #else
 inline constexpr bool kVerbose = true;

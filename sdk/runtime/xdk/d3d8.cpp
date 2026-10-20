@@ -1217,10 +1217,15 @@ void RunPushBuffer(uint32_t push_buffer, uint32_t fixup) {
             char name[48];
             std::snprintf(name, sizeof(name), "pushbuffer_rejected_%llu.bin", static_cast<unsigned long long>(reports));
             auto file = app::ExeDir() / diag::CaptureDir() / name;
-            if (FILE* f = _wfopen(file.c_str(), L"wb")) {
+#ifdef _WIN32
+            FILE* f = _wfopen(file.c_str(), L"wb");
+#else
+            FILE* f = std::fopen(file.c_str(), "wb");
+#endif
+            if (f) {
                 std::fwrite(bytes, 1, size, f);
                 std::fclose(f);
-                LOGR("d3d: recorded geometry saved to %ls", file.c_str());
+                LOGR("d3d: recorded geometry saved to %s", file.string().c_str());
             }
         }
     };

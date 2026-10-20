@@ -80,3 +80,14 @@ settings.toml
 !/docs/screenshots/title-screen.png
 !/docs/screenshots/graphics-before.png
 !/docs/screenshots/graphics-after.png
+
+# android
+/android/local.properties
+/android/.gradle/
+/android/app/build/
+/android/build/
+*.jks
+*.apk
+# the launcher's icon and header
+!/android/app/src/main/res/**/*.png
+!/android/app/src/main/res/**/*.jpg
