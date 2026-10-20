@@ -29,7 +29,7 @@ final class Paths {
     }
 
     static boolean extracted(File d) {
-        return d != null && new File(d, "default.xbe").isFile() && new File(d, "fpack").isDirectory();
+        return d != null && new File(d, "default.xbe").isFile() && hasDir(d, "Bundles");
     }
 
     static boolean looksLikeGame(File d) {
@@ -60,5 +60,13 @@ final class Paths {
             if (f != null) return f;
         }
         return null;
+    }
+
+    /** a folder of the disc next to default.xbe, whatever its case (the game opens it ignoring case) */
+    private static boolean hasDir(File d, String name) {
+        File[] list = d.listFiles();
+        if (list == null) return false;
+        for (File f : list) if (f.isDirectory() && f.getName().equalsIgnoreCase(name)) return true;
+        return false;
     }
 }

@@ -83,7 +83,7 @@ public class LauncherActivity extends Activity {
 
         col.addView(Ui.text(this, "Put your own copy of the USA Marvel Nemesis Xbox disc in this folder: the disc image "
                 + "(.iso), or default.xbe with the disc's folders (Bundles, Materials, Models...). Saves go to Internal storage/"
-                + "MarvelNemesis/hdd. In game, a three-finger tap opens the settings.", 12, Ui.DIM),
+                + "MarvelNemesis/saves. In game, a three-finger tap opens the settings.", 12, Ui.DIM),
                 Ui.margins(0, Ui.dp(this, 14), 0, 0));
 
         root.setFitsSystemWindows(true);
@@ -139,9 +139,9 @@ public class LauncherActivity extends Activity {
         File d = new File(dirField.getText().toString().trim());
         File iso = Paths.iso(d);
         boolean ready = Paths.looksLikeGame(d);
-        if (Paths.extracted(d)) status.setText("✓ default.xbe\n✓ fpack/\nReady.");
+        if (Paths.extracted(d)) status.setText("✓ default.xbe\n✓ Bundles/\nReady.");
         else if (iso != null) status.setText("✓ " + iso.getName() + "\nReady.");
-        else status.setText("✗ No disc image (.iso) or default.xbe with fpack/ in this folder.");
+        else status.setText("✗ No disc image (.iso) or default.xbe with Bundles/ in this folder.");
         play.setEnabled(ready);
         play.setAlpha(ready ? 1f : 0.5f);
     }
